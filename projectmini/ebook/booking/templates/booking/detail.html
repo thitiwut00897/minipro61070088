@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .btn{
+        margin-right: 1em;
+    }
+</style>
+{% for bo in booking %}
+<h1>ชื่อห้อง: {{ bo.name }}</h1>
+<p>เวลาเปิด: {{ bo.open_time }}</p>
+<p>เวลาปิด: {{ bo.close_time }}</p>
+<p>ความจุ: {{ bo.capacity }}</p>
+{% endfor %}
+<form method="POST" action="{% url 'bookingroom' %}">
+{% csrf_token %}
+    <h2>ขอจองห้อง</h2>
+    <p>วันที่จอง : <input type="date" name="date"></p>
+    <p>ตั้งแต่เวลา : <input type="time" name="start"></p>
+    <p>จนถึงเวลา : <input type="time" name="stop"></p>
+    <p>เหตุผลการใช่งาน : <input type="textarea" name="detail"></p>
+    <input type="submit" value="submit">
+</form>
+{% comment %} <h1>Course Name: {{ classroom.course.name }} ({{ classroom.course.id }})</h1>
+<p><b>Course Description :</b> {{ classroom.course.description|truncatechars:50 }}</p>
+<p><b>Section :</b> {{ classroom.section }}</p>
+<p><b>Time :</b> {{ classroom.start_time }} - {{ classroom.end_time }}</p>
+<p><b>Room :</b> {{ classroom.room.name|default_if_none:'N/A' }}</p>
+<p><b>Current Date/Time:</b> {% now "jS F Y H:i" %}</p>
+{% if checked %}
+    <p class="text-success">คุณได้ทำการเช็คชื่อเข้าเรียนแล้ว</p>
+{% else %}
+    <a href="{% url 'class_check_in' class_id=classroom.id %}">
+        <div class="btn btn-primary">Check in</div>
+    </a>
+{% endif %}
+<hr>
+<div class="row">
+    <span class="btn btn-warning">
+        Total Students: <span class="badge badge-light">{{ classroom.student_amount }}</span>
+    </span>
+    <span class="btn btn-success">
+        Attend: <span class="badge badge-light">{{ attend }}</span>
+    </span>
+    <span class="btn btn-danger">
+        Absent: <span class="badge badge-light">{{ absent }}</span>
+    </span>
+</div> {% endcomment %}
+{% endblock content %}
+

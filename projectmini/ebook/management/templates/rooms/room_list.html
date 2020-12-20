@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>จัดการข้อมูลห้อง (Room Management)</h1>
+        <br/><br/>
+        <form class="form-inline" method="GET" action="{% url 'room_list' %}">
+            <div class="form-group">
+                <label for="search">ค้นหาชื่อห้อง:</label>
+                <input type="text" class="form-control ml-3" id="search" 
+                    name="search" placeholder="Search" value="{{search}}">
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+            <a href="{% url 'room_add' %}"><button type="button" class="btn btn-secondary ml-3">Create New room</button></a>
+        </form>
+        <br/><br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">ชื่อห้อง</th>
+                    <th scope="col">เวลาเปิด</th>
+                    <th scope="col">เวลาปิด</th>
+                    <th scope="col">ความจุ</th>
+                    <th scope="col">แก้ไข/ลบ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in room %}
+                <tr>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.open_time }}</td>
+                    <td>{{ r.close_time }}</td>
+                    <td>{{ r.capacity }}</td>
+                    <td>
+                        <a href="{% url 'room_edit' room_id=r.id %}">   
+                            <div class="btn btn-primary" id="{{r.id}}">แก้ไข</div>
+                        </a>
+                        <a href="{% url 'room_delete' room_id=r.id %}">
+                            <div class="btn btn-warning" id="{{r.id}}">ลบ</div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of classroom list page!!!
+{% endblock %}

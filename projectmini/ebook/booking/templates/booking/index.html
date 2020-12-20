@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='container'>
+        <h1>E-BOOKING</h1>
+        <br/><br/>
+        <!--serch-->
+        <form class="form-inline" method="GET" action="{% url 'index' %}">
+            <div class="form-group">
+                <label for="inputSearch">ค้นหาชื่อห้อง:</label>
+                <input type="text" class="form-control ml-3" id="inputSearch" 
+                    name="inputSearch" placeholder="Search" value="{{search_txt}}">
+            </div>
+            <div class="form-group mx-3">
+                <label for="date">ค้นหาวันว่าง</label>
+                <select class="form-control" id="date" name="date">
+                    <option value="">--ทั้งหมด--</option>
+                    <option value="1" {% if date == '1' %}selected{% endif %}>1</option>
+                    <option value="2" {% if date == '2' %}selected{% endif %}>2</option>
+                </select>
+            </div>
+            <div class="form-group mx-3">
+                <label for="time">ค้นหาเวลงว่าง</label>
+                <select class="form-control" id="time" name="time">
+                    <option value="">--ทั้งหมด--</option>
+                    <option value="2018" {% if time == '2018' %}selected{% endif %}>2561</option>
+                    <option value="2019" {% if time == '2019' %}selected{% endif %}>2562</option>
+                    <option value="2020" {% if time == '2020' %}selected{% endif %}>2563</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+        <br/><br/>
+        <!--serch-->
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ชื่อห้อง</th>
+                    <th scope="col">เวลาเปิด</th>
+                    <th scope="col">เวลาปิด</th>
+                    <th scope="col">ความจุ</th>
+                    <th scope="col">จองห้อง</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in rooms %}
+                <tr>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.open_time }}</td>
+                    <td>{{ r.close_time }}</td>
+                    <td>{{ r.capacity }}</td>
+                
+                    <td>
+                        <a href="{% url 'detail' roomid=r.id %}">
+                            <div class="btn btn-warning" id="{{r.id}}">จองห้อง</div>
+                        </a>
+                    </td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .btn{
+        margin-right: 1em;
+    }
+</style>
+{% if error %}<p class="text-danger">{{ error }}</p>{% endif %}
+<form method="POST" action="{% url 'room_form_add' %}">
+{% csrf_token %}
+    <h2>สร้างห้อง</h2>
+    <p>ชื่อห้อง : <input type="text" name="name" required></p> <!--  required-->
+    <p>เวลาเปิด : <input type="time" name="start" required></p>
+    <p>เวลาปิด : <input type="time" name="stop" required></p>
+    <p>ความจุ : <input type="number" name="capacity" required></p>
+    <input type="submit" value="submit">
+</form>
+
+
+{% comment %} <h1>Course Name: {{ classroom.course.name }} ({{ classroom.course.id }})</h1>
+<p><b>Course Description :</b> {{ classroom.course.description|truncatechars:50 }}</p>
+<p><b>Section :</b> {{ classroom.section }}</p>
+<p><b>Time :</b> {{ classroom.start_time }} - {{ classroom.end_time }}</p>
+<p><b>Room :</b> {{ classroom.room.name|default_if_none:'N/A' }}</p>
+<p><b>Current Date/Time:</b> {% now "jS F Y H:i" %}</p>
+{% if checked %}
+    <p class="text-success">คุณได้ทำการเช็คชื่อเข้าเรียนแล้ว</p>
+{% else %}
+    <a href="{% url 'class_check_in' class_id=classroom.id %}">
+        <div class="btn btn-primary">Check in</div>
+    </a>
+{% endif %}
+<hr>
+<div class="row">
+    <span class="btn btn-warning">
+        Total Students: <span class="badge badge-light">{{ classroom.student_amount }}</span>
+    </span>
+    <span class="btn btn-success">
+        Attend: <span class="badge badge-light">{{ attend }}</span>
+    </span>
+    <span class="btn btn-danger">
+        Absent: <span class="badge badge-light">{{ absent }}</span>
+    </span>
+</div> {% endcomment %}
+{% endblock content %}
+

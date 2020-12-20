@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>อนุมัติ (accept)</h1>
+        <br/><br/>
+        {% comment %} <form class="form-inline" method="GET" action="{% url 'room_list' %}">
+            <div class="form-group">
+                <label for="search">ค้นหาชื่อห้อง:</label>
+                <input type="text" class="form-control ml-3" id="search" 
+                    name="search" placeholder="Search" value="{{search}}">
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+            <a href="{% url 'room_add' %}"><button type="button" class="btn btn-secondary ml-3">Create New room</button></a>
+        </form> {% endcomment %}
+        <br/><br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">ชื่อห้อง</th>
+                    <th scope="col">วันที่ขอจอง</th>
+                    <th scope="col">เวลาขอจอง</th>
+                    <th scope="col">เวลาว่างของห้อง</th>
+                    <th scope="col">อนุมัติ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in room %} <!--แก้กกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกก-->
+                <tr>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.open_time }} - {{ r.close_time }}</td> <!--r.open_time - r.close_time-->
+                    <td>{{ r.close_time }}</td>
+                    <td>{{ r.capacity }}</td>
+                    <td>
+                        <a href="{% url 'room_accept' room_id=r.id %}">   
+                            <div class="btn btn-primary" id="{{r.id}}">แก้ไขstate</div>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Footer of classroom list page!!!
+{% endblock %}
